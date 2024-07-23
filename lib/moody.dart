@@ -1,7 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 
 import 'exercise_card.dart';
+import 'feature_Card.dart';
 import 'mood_icon.dart';
 
 class MoodyApp extends StatefulWidget {
@@ -14,6 +18,7 @@ class MoodyApp extends StatefulWidget {
 }
 
 class _MoodyAppState extends State<MoodyApp> {
+  int activeIndex=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,12 +49,12 @@ class _MoodyAppState extends State<MoodyApp> {
           children: [
             Text(
               'Hello, Sara Rose',
-              style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
+              style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 8),
             Text(
               'How are you feeling today?',
-              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w400),
+              style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 16),
             Row(
@@ -74,44 +79,48 @@ class _MoodyAppState extends State<MoodyApp> {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF4838D1),
+                    color: Color(0xFF027A48),
                   ),
                 )
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 50),
             Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.greenAccent.shade100,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.play_circle_fill, size: 40, color: Colors.green),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Positive vibes',
-                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Boost your mood with positive vibes',
-                        style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        '10 mins',
-                        style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  )
-                ],
+                decoration: BoxDecoration(color: Color(0xFFECFDF3)),
+                height: 200,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    onPageChanged: (index,reason){
+                      setState(() {
+                        activeIndex=index;
+                      });
+                    },
+
+                    enlargeCenterPage: false,
+                    viewportFraction: 1,
+                    enlargeFactor: 10,
+                    height: 168.0,
+                    autoPlay: false,),
+                  items: ["body","body1","body3","body4"].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return FeatureCard();
+                      },
+                    );
+                  }).toList(),
+                )),
+            Center(
+              child: Container(
+
+                child: AnimatedSmoothIndicator(
+
+                  activeIndex:activeIndex,
+                  count: 3,
+                  effect: WormEffect(),
+                ),
               ),
             ),
+
             SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,7 +134,7 @@ class _MoodyAppState extends State<MoodyApp> {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF4838D1),
+                    color: Color(0xFF027A48),
                   ),
                 )
               ],
@@ -133,14 +142,15 @@ class _MoodyAppState extends State<MoodyApp> {
             SizedBox(height: 16),
             Expanded(
               child: GridView.count(
+                childAspectRatio:2,
                 crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 children: [
-                  ExerciseCard(title: 'Relaxation'),
-                  ExerciseCard(title: 'Meditation'),
-                  ExerciseCard(title: 'Breathing'),
-                  ExerciseCard(title: 'Yoga'),
+                  ExerciseCard(title: 'Relaxation',imagePath: "assets/images/Frame.png",),
+                  ExerciseCard(title: 'Meditation',imagePath: 'assets/images/Group.png',),
+                  ExerciseCard(title: 'Breathing',imagePath: 'assets/images/Beathing.png',),
+                  ExerciseCard(title: 'Yoga',imagePath: 'assets/images/Group.png'),
                 ],
               ),
             ),
@@ -152,13 +162,17 @@ class _MoodyAppState extends State<MoodyApp> {
         onTap: (value) {
           setState(() {});
         },
-        selectedItemColor: Color(0xFF4838D1),
+        selectedItemColor: Color(0xFF027A48),
         unselectedItemColor: Color(0xFF6A6A8B),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
+
           ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.apps_outage_outlined),
+    label: "Home",),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: "Schedule",
