@@ -150,7 +150,7 @@ class _MoodyAppState extends State<MoodyApp> {
                   ExerciseCard(title: 'Relaxation',imagePath: "assets/images/Frame.png",),
                   ExerciseCard(title: 'Meditation',imagePath: 'assets/images/Group.png',),
                   ExerciseCard(title: 'Breathing',imagePath: 'assets/images/Beathing.png',),
-                  ExerciseCard(title: 'Yoga',imagePath: 'assets/images/Group.png'),
+                  ExerciseCard(title: 'Yoga',imagePath: 'assets/images/yoga.png'),
                 ],
               ),
             ),

@@ -19,7 +19,7 @@ class MoodIcon extends StatelessWidget {
         SizedBox(height: 8),
         Text(
           label,
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
+          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
         )
       ],
     );
